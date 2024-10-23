@@ -1,29 +1,33 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UAD给排水规范查询</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #3498db; /* 蓝色背景颜色 */
+            color: white; /* 文本颜色为白色 */
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+    </style>
 </head>
-<body class="bg-blue-500 text-white font-sans flex justify-center items-center h-screen">
-    <div class="text-center">
-        <h1 class="text-4xl font-bold mb-4">点击右下角图标进入查询!</h1>
-        <p class="text-xl">UAD给排水专业</p>
-    </div>
-
-      <script src="https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/0.1.0-beta.6/libs/cn/index.js"></script>
+<body>
+    <h1>点击右下角图标进入查询</h1>
+    <p>UAD给排水专业</p>
+      <script src="https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/0.1.0-beta.7/libs/cn/index.js"></script>
       <script>
           new CozeWebSDK.WebChatClient({
             config: {
-              bot_id: '7417105380746444826',
+              bot_id: '7428842893705494566',
             },
             componentProps: {
               title: 'UAD',
             },
           });
       </script>
-    
+
 </body>
 </html>
