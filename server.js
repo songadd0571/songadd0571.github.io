@@ -26,7 +26,7 @@ app.post('/api/recommend', async (req, res) => {
 
         // 调用大模型API
         const response = await axios.post(AI_SERVICE_URL, {
-            model: "gpt-3.5-turbo",
+            model: "Qwen/Qwen2-7B-Instruct",
             messages: [{
                 role: "user",
                 content: prompt
