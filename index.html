@@ -1,48 +1,30 @@
-<!-- index.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>智能高考志愿填报系统</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YJS_Chat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>智能高考志愿填报系统</h1>
-        <form id="inputForm">
-            <div class="form-group">
-                <label>高考分数：</label>
-                <input type="number" id="score" required>
-            </div>
-            <div class="form-group">
-                <label>所在省份：</label>
-                <select id="province" required>
-                    <option value="北京">北京</option>
-                    <option value="广东">广东</option>
-                    <!-- 其他省份... -->
-                </select>
-            </div>
-            <div class="form-group">
-                <label>选考科目：</label>
-                <div class="checkbox-group">
-                    <label><input type="checkbox" name="subjects" value="物理"> 物理</label>
-                    <label><input type="checkbox" name="subjects" value="历史"> 历史</label>
-                    <!-- 其他科目... -->
+    <div class="chat-container">
+        <div class="messages" id="messages"></div>
+        <div id="loading" class="loading" style="display: none;">加载中...</div>
+        <div class="input-container">
+            <input id="chat-input" type="text" placeholder="输入消息..." />
+            <button onclick="sendMessage()">发送</button>
+            <div class="dropdown">
+                <button onclick="toggleDropdown(event)">更多</button>
+                <div class="dropdown-content" id="dropdownMenu">
+                    <div class="dropdown-item" onclick="toggleTheme()">
+                        <span>浅色/深色</span>
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label>兴趣方向：</label>
-                <textarea id="interests" placeholder="请输入你的兴趣方向..."></textarea>
-            </div>
-            <button type="submit">生成志愿建议</button>
-        </form>
-        
-        <div id="result" class="hidden">
-            <h2>推荐结果：</h2>
-            <div class="recommendations"></div>
-            <div class="loading">分析中...</div>
         </div>
     </div>
 
-    <script src="app.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
