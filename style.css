@@ -1,0 +1,28 @@
+/* style.css */
+body {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.checkbox-group label {
+    margin-right: 15px;
+}
+
+#result {
+    margin-top: 30px;
+}
+
+.hidden {
+    display: none;
+}
+
+.loading {
+    color: #666;
+    font-style: italic;
+}
