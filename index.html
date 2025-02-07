@@ -1,29 +1,30 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UAD给排水规范查询</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>小元Chat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-blue-500 text-white font-sans flex justify-center items-center h-screen">
-    <div class="text-center">
-        <h1 class="text-4xl font-bold mb-4">点击右下角图标进行查询!</h1>
-        <p class="text-xl">UAD给排水专业</p>
+<body>
+    <div class="chat-container">
+        <div class="messages" id="messages"></div>
+        <div id="loading" class="loading" style="display: none;">加载中...</div>
+        <div class="input-container">
+            <input id="chat-input" type="text" placeholder="输入消息..." />
+            <button onclick="sendMessage()">发送</button>
+            <div class="dropdown">
+                <button onclick="toggleDropdown(event)">更多</button>
+                <div class="dropdown-content" id="dropdownMenu">
+                    <div class="dropdown-item" onclick="toggleTheme()">
+                        <span>浅色/深色</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-      <script src="https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/0.1.0-beta.7/libs/cn/index.js"></script>
-      <script>
-          new CozeWebSDK.WebChatClient({
-            config: {
-              bot_id: '7428842893705494566',
-            },
-            componentProps: {
-              title: 'UAD',
-            },
-          });
-      </script>
-    
+    <script src="script.js"></script>
 </body>
 </html>
