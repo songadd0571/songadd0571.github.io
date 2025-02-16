@@ -1,27 +1,28 @@
+// 全局变量，用于存储 ECharts 实例
 let myChart = null;
 
 // 初始化图表
 function initChart() {
-  if (!myChart) {
-    const chartDom = document.getElementById("chartContainer");
-    myChart = echarts.init(chartDom);
+    if (!myChart) {
+        const chartDom = document.getElementById("chartContainer");
+        myChart = echarts.init(chartDom);
 
-    // 监听窗口大小变化
-    window.addEventListener("resize", function () {
-      myChart.resize();
-    });
-  }
+        // 监听窗口大小变化，调整图表尺寸
+        window.addEventListener("resize", function () {
+            myChart.resize();
+        });
+    }
 }
 
-// 配置API信息
+// 配置 API 信息
 const API_CONFIG = {
-  url: "https://api.siliconflow.cn/v1/chat/completions",
-  token: "sk-gujavyfzigosfcmoyoaukefecuuexucjcxznbvijvakqmdoa",
+    url: "https://api.siliconflow.cn/v1/chat/completions",
+    token: "sk-gujavyfzigosfcmoyoaukefecuuexucjcxznbvijvakqmdoa",
 };
 
 // 提示词模板
 const promptTemplates = {
-  line: `请分析以下文本,提取折线图数据并按如下格式返回:
+    line: `请分析以下文本,提取折线图数据并按如下格式返回:
   {
     "title": "图表标题",
     "xAxis": ["x轴类别1", "x轴类别2",...], 
@@ -32,8 +33,7 @@ const promptTemplates = {
       }
     ]
   }`,
-
-  bar: `请分析以下文本,提取柱状图数据并按如下格式返回:
+    bar: `请分析以下文本,提取柱状图数据并按如下格式返回:
   {
     "title": "图表标题",
     "xAxis": ["x轴类别1", "x轴类别2",...],
@@ -44,8 +44,7 @@ const promptTemplates = {
       }
     ]
   }`,
-
-  pie: `请分析以下文本,提取饼图数据并按如下格式返回:
+    pie: `请分析以下文本,提取饼图数据并按如下格式返回:
   {
     "title": "图表标题",
     "series": [
@@ -63,202 +62,202 @@ const promptTemplates = {
 
 // 清空所有内容
 function clearAll() {
-  document.getElementById("inputText").value = "";
-  document.getElementById("extractedData").value = "";
-  document.getElementById("generatedCode").value = "";
+    document.getElementById("inputText").value = "";
+    document.getElementById("extractedData").value = "";
+    document.getElementById("generatedCode").value = "";
 
-  if (myChart) {
-    myChart.clear();
-  }
+    if (myChart) {
+        myChart.clear();
+    }
 }
 
 // 全屏切换
 function toggleFullscreen() {
-  const chartContainer = document.getElementById("chartContainer");
+    const chartContainer = document.getElementById("chartContainer");
 
-  if (!document.fullscreenElement) {
-    chartContainer.requestFullscreen().catch((err) => {
-      alert(`全屏显示错误: ${err.message}`);
-    });
-  } else {
-    document.exitFullscreen();
-  }
+    if (!document.fullscreenElement) {
+        chartContainer.requestFullscreen().catch((err) => {
+            alert(`全屏显示错误: ${err.message}`);
+        });
+    } else {
+        document.exitFullscreen();
+    }
 }
 
 // 导出图表为图片
 function exportChart() {
-  if (!myChart) {
-    alert("没有可导出的图表");
-    return;
-  }
+    if (!myChart) {
+        alert("没有可导出的图表");
+        return;
+    }
 
-  const url = myChart.getDataURL({
-    type: "png",
-    pixelRatio: 2,
-  });
+    const url = myChart.getDataURL({
+        type: "png",
+        pixelRatio: 2,
+    });
 
-  const link = document.createElement("a");
-  link.download = `chart_${new Date().getTime()}.png`;
-  link.href = url;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
+    const link = document.createElement("a");
+    link.download = `chart_${new Date().getTime()}.png`;
+    link.href = url;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }
 
 // 复制到剪贴板
 async function copyToClipboard() {
-  if (!myChart) {
-    alert("没有可复制的图表");
-    return;
-  }
+    if (!myChart) {
+        alert("没有可复制的图表");
+        return;
+    }
 
-  try {
-    const url = myChart.getDataURL({
-      type: "png",
-      pixelRatio: 2,
-    });
+    try {
+        const url = myChart.getDataURL({
+            type: "png",
+            pixelRatio: 2,
+        });
 
-    const response = await fetch(url);
-    const blob = await response.blob();
+        const response = await fetch(url);
+        const blob = await response.blob();
 
-    await navigator.clipboard.write([
-      new ClipboardItem({
-        "image/png": blob,
-      }),
-    ]);
+        await navigator.clipboard.write([
+            new ClipboardItem({
+                "image/png": blob,
+            }),
+        ]);
 
-    alert("图表已复制到剪贴板");
-  } catch (err) {
-    console.error("复制失败:", err);
-    alert("复制失败,请查看控制台了解详情");
-  }
+        alert("图表已复制到剪贴板");
+    } catch (err) {
+        console.error("复制失败:", err);
+        alert("复制失败,请查看控制台了解详情");
+    }
 }
 
 // 分析文本
 async function analyzeText() {
-  const inputText = document.getElementById("inputText").value;
-  if (!inputText.trim()) {
-    alert("请输入要分析的文本");
-    return;
-  }
+    const inputText = document.getElementById("inputText").value;
+    if (!inputText.trim()) {
+        alert("请输入要分析的文本");
+        return;
+    }
 
-  const chartType = document.getElementById("chartType").value;
-  const loadingEl = document.getElementById("loading");
+    const chartType = document.getElementById("chartType").value;
+    const loadingEl = document.getElementById("loading");
 
-  loadingEl.style.display = "inline";
-
-  try {
-    const prompt = promptTemplates[chartType] + `\n文本内容:\n${inputText}`;
-
-    const response = await axios.post(
-      API_CONFIG.url,
-      {
-        model: "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
-        messages: [
-          {
-            role: "user",
-            content: prompt,
-          },
-        ],
-        stream: false,
-        max_tokens: 1024,
-        temperature: 0.3,
-        top_p: 0.8,
-        frequency_penalty: 0.2,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${API_CONFIG.token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    let extractedData = response.data.choices[0].message.content;
+    loadingEl.style.display = "inline";
 
     try {
-      extractedData = extractedData.substring(
-        extractedData.indexOf("{"),
-        extractedData.lastIndexOf("}") + 1
-      );
+        const prompt = promptTemplates[chartType] + `\n文本内容:\n${inputText}`;
 
-      const chartData = JSON.parse(extractedData);
+        const response = await axios.post(
+            API_CONFIG.url,
+            {
+                model: "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+                messages: [
+                    {
+                        role: "user",
+                        content: prompt,
+                    },
+                ],
+                stream: false,
+                max_tokens: 1024,
+                temperature: 0.3,
+                top_p: 0.8,
+                frequency_penalty: 0.2,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${API_CONFIG.token}`,
+                    "Content-Type": "application/json",
+                },
+            }
+        );
 
-      document.getElementById("extractedData").value = JSON.stringify(
-        chartData,
-        null,
-        2
-      );
+        let extractedData = response.data.choices[0].message.content;
 
-      const chartCode = generateChartCode(chartData, chartType);
-      document.getElementById("generatedCode").value = chartCode;
+        try {
+            extractedData = extractedData.substring(
+                extractedData.indexOf("{"),
+                extractedData.lastIndexOf("}") + 1
+            );
 
-      // 初始化并渲染图表
-      initChart();
-      eval(chartCode);
-    } catch (parseError) {
-      console.error("JSON解析错误:", parseError);
-      document.getElementById("extractedData").value =
-        "数据格式错误,无法解析为JSON: " + extractedData;
+            const chartData = JSON.parse(extractedData);
+
+            document.getElementById("extractedData").value = JSON.stringify(
+                chartData,
+                null,
+                2
+            );
+
+            const chartCode = generateChartCode(chartData, chartType);
+            document.getElementById("generatedCode").value = chartCode;
+
+            // 初始化并渲染图表
+            initChart();
+            eval(chartCode);
+        } catch (parseError) {
+            console.error("JSON 解析错误:", parseError);
+            document.getElementById("extractedData").value =
+                "数据格式错误,无法解析为 JSON: " + extractedData;
+        }
+    } catch (error) {
+        console.error("API 调用错误:", error);
+        alert("处理过程中发生错误,请查看控制台了解详情。");
+    } finally {
+        loadingEl.style.display = "none";
     }
-  } catch (error) {
-    console.error("API调用错误:", error);
-    alert("处理过程中发生错误,请查看控制台了解详情。");
-  } finally {
-    loadingEl.style.display = "none";
-  }
 }
 
 // 生成图表代码
 function generateChartCode(data, chartType) {
-  const baseOptions = {
-    title: {
-      text: data.title || "",
-    },
-    tooltip: {
-      trigger: chartType === "pie" ? "item" : "axis",
-    },
-    legend: {
-      orient: "vertical",
-      left: "right",
-    },
-  };
-
-  let specificOptions = {};
-
-  if (chartType === "line" || chartType === "bar") {
-    specificOptions = {
-      xAxis: {
-        type: "category",
-        data: data.xAxis,
-      },
-      yAxis: {
-        type: "value",
-      },
-      series: data.series.map((series) => ({
-        name: series.name,
-        type: chartType,
-        data: series.data,
-      })),
-    };
-  } else if (chartType === "pie") {
-    specificOptions = {
-      series: [
-        {
-          type: "pie",
-          radius: "50%",
-          data: data.series,
+    const baseOptions = {
+        title: {
+            text: data.title || "",
         },
-      ],
+        tooltip: {
+            trigger: chartType === "pie" ? "item" : "axis",
+        },
+        legend: {
+            orient: "vertical",
+            left: "right",
+        },
     };
-  }
 
-  const chartOptions = {
-    ...baseOptions,
-    ...specificOptions,
-  };
+    let specificOptions = {};
 
-  return `
+    if (chartType === "line" || chartType === "bar") {
+        specificOptions = {
+            xAxis: {
+                type: "category",
+                data: data.xAxis,
+            },
+            yAxis: {
+                type: "value",
+            },
+            series: data.series.map((series) => ({
+                name: series.name,
+                type: chartType,
+                data: series.data,
+            })),
+        };
+    } else if (chartType === "pie") {
+        specificOptions = {
+            series: [
+                {
+                    type: "pie",
+                    radius: "50%",
+                    data: data.series,
+                },
+            ],
+        };
+    }
+
+    const chartOptions = {
+      ...baseOptions,
+      ...specificOptions,
+    };
+
+    return `
     const chartDom = document.getElementById('chartContainer');
     const myChart = echarts.init(chartDom);
     const option = ${JSON.stringify(chartOptions, null, 2)};
@@ -268,19 +267,28 @@ function generateChartCode(data, chartType) {
 
 // 刷新图表
 function refreshChart() {
-  const chartCode = document.getElementById("generatedCode").value;
-  if (chartCode.trim()) {
-    try {
-      initChart();
-      eval(chartCode);
-    } catch (error) {
-      console.error("刷新图表时出错:", error);
-      alert("刷新图表时发生错误,请查看控制台了解详情。");
+    const chartCode = document.getElementById("generatedCode").value;
+    if (chartCode.trim()) {
+        try {
+            initChart();
+            eval(chartCode);
+        } catch (error) {
+            console.error("刷新图表时出错:", error);
+            alert("刷新图表时发生错误,请查看控制台了解详情。");
+        }
+    } else {
+        alert("没有可刷新的代码,请先生成图表代码。");
     }
-  } else {
-    alert("没有可刷新的代码,请先生成图表代码。");
-  }
 }
 
-// 初始化图表实例
-initChart();
+// 页面加载完成后绑定事件和初始化图表
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('analyzeButton').addEventListener('click', analyzeText);
+    document.getElementById('clearButton').addEventListener('click', clearAll);
+    document.getElementById('fullscreenButton').addEventListener('click', toggleFullscreen);
+    document.getElementById('exportButton').addEventListener('click', exportChart);
+    document.getElementById('copyButton').addEventListener('click', copyToClipboard);
+    document.getElementById('refreshButton').addEventListener('click', refreshChart);
+
+    initChart();
+});
