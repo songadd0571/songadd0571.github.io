@@ -152,7 +152,7 @@ async function analyzeText() {
         const response = await axios.post(
             API_CONFIG.url,
             {
-                model: "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+                model: "Qwen/Qwen2-1.5B-Instruct",
                 messages: [
                     {
                         role: "user",
