@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>海绵城市计算书</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2980b9;
+            border-left: 4px solid #3498db;
+            padding-left: 10px;
+        }
+        h3 {
+            color: #16a085;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .highlight {
+            background-color: #e3f2fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .formula {
+            font-family: "Times New Roman", Times, serif;
+            font-style: italic;
+            text-align: center;
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-left: 3px solid #3498db;
+        }
+        .result {
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        .check {
+            color: #27ae60;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>海绵城市计算书</h1>
+
+        <h2>1 控制指标</h2>
+        <p>项目的控制指标需要根据具体项目要求调整，如果没有另行要求，可以参考如下指标。</p>
+        <ul>
+            <li>年径流总量控制率达到75%，对应的日降雨量h<sub>p</sub>为26.4mm；</li>
+            <li>雨量径流系数ψ<sub>c</sub>≤0.60；</li>
+            <li>面源污染消减率（以SS计）η<sub>ss</sub>≥50%；</li>
+            <li>下凹绿地占绿地比例≥40%；</li>
+            <li>道路透水铺装比例≥25%。</li>
+        </ul>
+
+        <h2>2 地块指标</h2>
+        <p>地块指标需要根据具体项目情况调整，没有的下垫面类型，其投影面积为0。</p>
+        <p>本项目的地块指标如下：</p>
+        
+        <h3>下垫面水平投影面积</h3>
+        <table>
+            <tr>
+                <th>下垫面类型</th>
+                <th>水平投影面积F<sub>i</sub>（m<sup>2</sup>）</th>
+            </tr>
+            <tr>
+                <td>绿化屋面</td>
+                <td>4,167.3</td>
+            </tr>
+            <tr>
+                <td>硬质屋面</td>
+                <td>5,642.6</td>
+            </tr>
+            <tr>
+                <td>铺石子的平屋面</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>混凝土或沥青路面及广场</td>
+                <td>3,083.6</td>
+            </tr>
+            <tr>
+                <td>块石铺砌路面及广场</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>绿地</td>
+                <td>1,550.2</td>
+            </tr>
+            <tr>
+                <td>地下建筑覆土绿地（≥500mm）</td>
+                <td>1,788.3</td>
+            </tr>
+            <tr>
+                <td>透水铺装</td>
+                <td>1,646.2</td>
+            </tr>
+        </table>
+
+        <h2>3 海绵计算</h2>
+
+        <h3>3.1 综合径流系数计算</h3>
+        <p>综合径流系数ψ<sub>z</sub>分为流量径流系数ψ<sub>m</sub>和雨量径流系数ψ<sub>c</sub>。</p>
+        
+        <div class="formula">
+            ψ<sub>m</sub> = (∑ F<sub>i</sub> × ψ<sub>mi</sub>) / F<sub>z</sub>
+        </div>
+        <div class="formula">
+            ψ<sub>c</sub> = (∑ F<sub>i</sub> × ψ<sub>ci</sub>) / F<sub>z</sub>
+        </div>
+
+        <p>本项目的建设场地总面积 F<sub>z</sub> = 17,878.2 m<sup>2</sup></p>
+        
+        <div class="highlight">
+            <p>本项目的流量径流系数 ψ<sub>m</sub> = <span class="result">0.65</span></p>
+            <p>本项目的雨量径流系数 ψ<sub>c</sub> = <span class="result">0.527</span></p>
+            <p>判断ψ<sub>c</sub>是否满足控制指标中的要求：</p>
+            <p>本工程ψ<sub>c</sub>=0.527，<span class="check">满足ψ<sub>c</sub>≤0.6的要求</span>。</p>
+        </div>
+
+        <h3>3.2 年径流总量控制率核算</h3>
+        <p>年径流总量控制率75%对应的日降雨量h<sub>p</sub>为26.4mm。</p>
+        
+        <div class="formula">
+            V<sub>1</sub> = h<sub>p</sub> × F<sub>z</sub> = 26.4 × 17,878.2 / 1,000 = 472 m<sup>3</sup>
+        </div>
+        <div class="formula">
+            V<sub>2</sub> = (1 - ψ<sub>c</sub>) × h<sub>p</sub> × F<sub>z</sub> = (1 - 0.527) × 26.4 × 17,878.2 / 1,000 = 223.3 m<sup>3</sup>
+        </div>
+        <div class="formula">
+            V<sub>3</sub> = V<sub>1</sub> - V<sub>2</sub> = 472 - 223.3 = 248.7 m<sup>3</sup>
+        </div>
+
+        <h3>3.3 LID设施计算</h3>
+        <p>设施一：设置下凹绿地，面积占比按40%计算：</p>
+        <p>下凹绿地面积 = 40% × (1,550.2 + 1,788.3) = 1,335.4 m<sup>2</sup></p>
+        <p>下凹式绿地受纳雨水容积：V<sub>4</sub> = 1,335.4 × 0.15 = 200 m<sup>3</sup></p>
+        
+        <p>设施二：设置蓄水池，有效容积不小于 V<sub>5</sub> = 248.7 - 200 = 48.7 m<sup>3</sup></p>
+        
+        <div class="highlight">
+            <p>综上所述，设置1,335.4 m<sup>2</sup>下凹绿地，以及有效容积不小于48.7 m<sup>3</sup>的蓄水池，即能满足年径流总量控制率不小于75%的要求。</p>
+        </div>
+
+        <h3>3.4 面源污染消减率（以SS计）η<sub>ss</sub>计算</h3>
+        <div class="formula">
+            η<sub>ss</sub> = (∑ FW<sub>i</sub> × η<sub>i</sub>) / FW<sub>z</sub>
+        </div>
+        
+        <p>本项目的LID设施包括透水铺装、绿化屋面、蓄水池和绿地。</p>
+        
+        <div class="highlight">
+            <p>面源污染削减率（以SS计）η<sub>ss</sub> = <span class="result">77%</span></p>
+            <p>η<sub>ss</sub>≥50% <span class="check">满足控制指标要求</span>。</p>
+        </div>
+
+        <h2>4 结论</h2>
+        <div class="highlight">
+            <p>本项目通过合理设置海绵城市设施（包括1,335.4 m<sup>2</sup>下凹绿地和48.7 m<sup>3</sup>蓄水池），成功实现了以下目标：</p>
+            <ul>
+                <li>雨量径流系数ψ<sub>c</sub>=0.527（≤0.6）</li>
+                <li>年径流总量控制率≥75%</li>
+                <li>面源污染削减率η<sub>ss</sub>=77%（≥50%）</li>
+                <li>下凹绿地占绿地比例≥40%</li>
+                <li>透水铺装比例=9.2%（需增加以满足≥25%要求）</li>
+            </ul>
+            <p class="result">建议增加透水铺装面积以满足道路透水铺装比例≥25%的要求。</p>
+        </div>
+    </div>
+</body>
+</html>
