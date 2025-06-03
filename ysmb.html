@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>海绵城市计算书</title>
+    <title>雨水系统计算书</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,14 +11,6 @@
             margin: 0;
             padding: 20px;
             color: #333;
-        }
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         h1 {
             color: #2c3e50;
@@ -30,181 +22,594 @@
             color: #2980b9;
             border-left: 4px solid #3498db;
             padding-left: 10px;
-        }
-        h3 {
-            color: #16a085;
+            margin-top: 30px;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 15px 0;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
+            margin: 20px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
         th, td {
-            padding: 10px;
+            border: 1px solid #ddd;
+            padding: 8px 12px;
             text-align: left;
         }
         th {
-            background-color: #3498db;
-            color: white;
+            background-color: #f2f2f2;
+            font-weight: bold;
         }
         tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-        .highlight {
-            background-color: #e3f2fd;
-            padding: 15px;
-            border-radius: 5px;
-            margin: 15px 0;
+            background-color: #f9f9f9;
         }
         .formula {
-            font-family: "Times New Roman", Times, serif;
-            font-style: italic;
-            text-align: center;
+            font-family: "Courier New", monospace;
+            background-color: #f5f5f5;
+            padding: 5px 10px;
+            border-radius: 3px;
+            overflow-x: auto;
+        }
+        .highlight {
+            background-color: #fffde7;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        .calculation {
             margin: 15px 0;
             padding: 10px;
-            background-color: #f5f5f5;
-            border-left: 3px solid #3498db;
+            background-color: #e8f4f8;
+            border-left: 4px solid #3498db;
         }
-        .result {
-            font-weight: bold;
-            color: #e74c3c;
-        }
-        .check {
-            color: #27ae60;
-            font-weight: bold;
+        .page-break {
+            page-break-before: always;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>海绵城市计算书</h1>
+    <h1>雨水系统计算书</h1>
 
-        <h2>1 控制指标</h2>
-        <p>项目的控制指标需要根据具体项目要求调整，如果没有另行要求，可以参考如下指标。</p>
-        <ul>
-            <li>年径流总量控制率达到75%，对应的日降雨量h<sub>p</sub>为26.4mm；</li>
-            <li>雨量径流系数ψ<sub>c</sub>≤0.60；</li>
-            <li>面源污染消减率（以SS计）η<sub>ss</sub>≥50%；</li>
-            <li>下凹绿地占绿地比例≥40%；</li>
-            <li>道路透水铺装比例≥25%。</li>
-        </ul>
+    <h2>1 基础数据</h2>
+    <p>基础数据需要根据具体项目数据调整，如果没有另行要求，可以参考如下数据：</p>
+    <ul>
+        <li>项目位置：宁波；</li>
+        <li>设计重现期 P=50 (a)；</li>
+        <li>降雨历时 t=5 (min)；</li>
+    </ul>
 
-        <h2>2 地块指标</h2>
-        <p>地块指标需要根据具体项目情况调整，没有的下垫面类型，其投影面积为0。</p>
-        <p>本项目的地块指标如下：</p>
-        
-        <h3>下垫面水平投影面积</h3>
-        <table>
-            <tr>
-                <th>下垫面类型</th>
-                <th>水平投影面积F<sub>i</sub>（m<sup>2</sup>）</th>
-            </tr>
-            <tr>
-                <td>绿化屋面</td>
-                <td>4,167.3</td>
-            </tr>
-            <tr>
-                <td>硬质屋面</td>
-                <td>5,642.6</td>
-            </tr>
-            <tr>
-                <td>铺石子的平屋面</td>
-                <td>0</td>
-            </tr>
-            <tr>
-                <td>混凝土或沥青路面及广场</td>
-                <td>3,083.6</td>
-            </tr>
-            <tr>
-                <td>块石铺砌路面及广场</td>
-                <td>0</td>
-            </tr>
-            <tr>
-                <td>绿地</td>
-                <td>1,550.2</td>
-            </tr>
-            <tr>
-                <td>地下建筑覆土绿地（≥500mm）</td>
-                <td>1,788.3</td>
-            </tr>
-            <tr>
-                <td>透水铺装</td>
-                <td>1,646.2</td>
-            </tr>
-        </table>
+    <p>不同分区的数据如下表：</p>
+    <table>
+        <tr>
+            <th>分区</th>
+            <th>汇水面积 F<sub>w</sub> (m²)</th>
+            <th>径流系数 ψ</th>
+            <th>屋面坡度（%）</th>
+            <th>是否采用内檐沟集水</th>
+        </tr>
+        <tr>
+            <td>分区 1</td>
+            <td>500</td>
+            <td>1.0</td>
+            <td>3.0</td>
+            <td>否</td>
+        </tr>
+        <tr>
+            <td>分区 2</td>
+            <td>800</td>
+            <td>1.0</td>
+            <td>2.0</td>
+            <td>否</td>
+        </tr>
+        <tr>
+            <td>分区 3</td>
+            <td>1000</td>
+            <td>1.0</td>
+            <td>2.0</td>
+            <td>是</td>
+        </tr>
+    </table>
 
-        <h2>3 海绵计算</h2>
+    <div class="page-break"></div>
 
-        <h3>3.1 综合径流系数计算</h3>
-        <p>综合径流系数ψ<sub>z</sub>分为流量径流系数ψ<sub>m</sub>和雨量径流系数ψ<sub>c</sub>。</p>
-        
-        <div class="formula">
-            ψ<sub>m</sub> = (∑ F<sub>i</sub> × ψ<sub>mi</sub>) / F<sub>z</sub>
-        </div>
-        <div class="formula">
-            ψ<sub>c</sub> = (∑ F<sub>i</sub> × ψ<sub>ci</sub>) / F<sub>z</sub>
-        </div>
+    <h2>2 暴雨强度计算</h2>
+    <p>根据项目所在城市名称，按下表选择暴雨强度公式。其中，q 为暴雨强度 [L/(s·hm²)], P 为设计降雨重现期 (a), t 为降雨历时(min)。</p>
 
-        <p>本项目的建设场地总面积 F<sub>z</sub> = 17,878.2 m<sup>2</sup></p>
-        
-        <div class="highlight">
-            <p>本项目的流量径流系数 ψ<sub>m</sub> = <span class="result">0.65</span></p>
-            <p>本项目的雨量径流系数 ψ<sub>c</sub> = <span class="result">0.527</span></p>
-            <p>判断ψ<sub>c</sub>是否满足控制指标中的要求：</p>
-            <p>本工程ψ<sub>c</sub>=0.527，<span class="check">满足ψ<sub>c</sub>≤0.6的要求</span>。</p>
-        </div>
+    <table>
+        <tr>
+            <th>序号</th>
+            <th>城市名称</th>
+            <th>暴雨强度公式</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>杭州 主城区</td>
+            <td class="formula">q = (1455.550 × (1 + 0.958lgP)) / (t + 5.861)<sup>0.674</sup></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>萧山</td>
+            <td class="formula">q = (1276.330 × (1 + 0.828lgP)) / (t + 4.937)<sup>0.632</sup></td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>余杭</td>
+            <td class="formula">q = (7039.735 × (1 + 0.497lgP)) / (t + 22.764)<sup>0.890</sup></td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>富阳</td>
+            <td class="formula">q = (3968.269 × (1 + 0.906lgP)) / (t + 16.129)<sup>0.876</sup></td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>临安</td>
+            <td class="formula">q = (2763.132 × (1 + 0.399lgP)) / (t + 10.870)<sup>0.753</sup></td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>桐庐</td>
+            <td class="formula">q = (4239.188 × (1 + 0.685lgP)) / (t + 15.886)<sup>0.889</sup></td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>淳安</td>
+            <td class="formula">q = (1695.159 × (1 + 0.867lgP)) / (t + 6.704)<sup>0.751</sup></td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>建德</td>
+            <td class="formula">q = (10419.762 × (1 + 0.553lgP)) / (t + 26.791)<sup>1.031</sup></td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>宁波 主城区</td>
+            <td class="formula">q = (6576.744 × (1 + 0.685lgP)) / (t + 25.309)<sup>0.921</sup></td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td>北仑</td>
+            <td class="formula">q = (2664.628 × (1 + 0.945lgP)) / (t + 13.262)<sup>0.763</sup></td>
+        </tr>
+        <tr>
+            <td>11</td>
+            <td>镇海</td>
+            <td class="formula">q = (2710.303 × (1 + 0.958lgP)) / (t + 15.050)<sup>0.769</sup></td>
+        </tr>
+        <tr>
+            <td>12</td>
+            <td>奉化</td>
+            <td class="formula">q = (799.935 × (1 + 0.75lgP)) / (t + 2.080)<sup>0.508</sup></td>
+        </tr>
+        <tr>
+            <td>13</td>
+            <td>象山</td>
+            <td class="formula">q = (1311.955 × (1 + 0.698lgP)) / (t + 6.741)<sup>0.575</sup></td>
+        </tr>
+        <tr>
+            <td>14</td>
+            <td>宁海</td>
+            <td class="formula">q = (1287.699 × (1 + 0.724lgP)) / (t + 4.676)<sup>0.579</sup></td>
+        </tr>
+        <tr>
+            <td>15</td>
+            <td>余姚</td>
+            <td class="formula">q = (2293.666 × (1 + 0.698lgP)) / (t + 9.770)<sup>0.723</sup></td>
+        </tr>
+        <tr>
+            <td>16</td>
+            <td>慈溪</td>
+            <td class="formula">q = (3075.584 × (1 + 0.854lgP)) / (t + 14.466)<sup>0.781</sup></td>
+        </tr>
+    </table>
 
-        <h3>3.2 年径流总量控制率核算</h3>
-        <p>年径流总量控制率75%对应的日降雨量h<sub>p</sub>为26.4mm。</p>
-        
-        <div class="formula">
-            V<sub>1</sub> = h<sub>p</sub> × F<sub>z</sub> = 26.4 × 17,878.2 / 1,000 = 472 m<sup>3</sup>
-        </div>
-        <div class="formula">
-            V<sub>2</sub> = (1 - ψ<sub>c</sub>) × h<sub>p</sub> × F<sub>z</sub> = (1 - 0.527) × 26.4 × 17,878.2 / 1,000 = 223.3 m<sup>3</sup>
-        </div>
-        <div class="formula">
-            V<sub>3</sub> = V<sub>1</sub> - V<sub>2</sub> = 472 - 223.3 = 248.7 m<sup>3</sup>
-        </div>
+    <div class="page-break"></div>
 
-        <h3>3.3 LID设施计算</h3>
-        <p>设施一：设置下凹绿地，面积占比按40%计算：</p>
-        <p>下凹绿地面积 = 40% × (1,550.2 + 1,788.3) = 1,335.4 m<sup>2</sup></p>
-        <p>下凹式绿地受纳雨水容积：V<sub>4</sub> = 1,335.4 × 0.15 = 200 m<sup>3</sup></p>
-        
-        <p>设施二：设置蓄水池，有效容积不小于 V<sub>5</sub> = 248.7 - 200 = 48.7 m<sup>3</sup></p>
-        
-        <div class="highlight">
-            <p>综上所述，设置1,335.4 m<sup>2</sup>下凹绿地，以及有效容积不小于48.7 m<sup>3</sup>的蓄水池，即能满足年径流总量控制率不小于75%的要求。</p>
-        </div>
+    <table>
+        <tr>
+            <th>序号</th>
+            <th>城市名称</th>
+            <th>暴雨强度公式</th>
+        </tr>
+        <tr>
+            <td>17</td>
+            <td>温州 主城区</td>
+            <td class="formula">q = (781.307 × (1 + 0.867lgP)) / (t + 5.029)<sup>0.429</sup></td>
+        </tr>
+        <tr>
+            <td>18</td>
+            <td>洞头</td>
+            <td class="formula">q = (956.762 × (1 + 0.955lgP)) / (t + 6.757)<sup>0.561</sup></td>
+        </tr>
+        <tr>
+            <td>19</td>
+            <td>永嘉</td>
+            <td class="formula">q = (922.098 × (1 + 0.815lgP)) / (t + 3.478)<sup>0.496</sup></td>
+        </tr>
+        <tr>
+            <td>20</td>
+            <td>平阳</td>
+            <td class="formula">q = (1565.166 × (1 + 0.659lgP)) / (t + 10.928)<sup>0.606</sup></td>
+        </tr>
+        <tr>
+            <td>21</td>
+            <td>苍南</td>
+            <td class="formula">q = (1109.715 × (1 + 0.595lgP)) / (t + 9.571)<sup>0.506</sup></td>
+        </tr>
+        <tr>
+            <td>22</td>
+            <td>文成</td>
+            <td class="formula">q = (1846.477 × (1 + 0.503lgP)) / (t + 10.857)<sup>0.629</sup></td>
+        </tr>
+        <tr>
+            <td>23</td>
+            <td>泰顺</td>
+            <td class="formula">q = (2124.545 × (1 + 0.737lgP)) / (t + 12.807)<sup>0.668</sup></td>
+        </tr>
+        <tr>
+            <td>24</td>
+            <td>瑞安</td>
+            <td class="formula">q = (2521.430 × (1 + 0.854lgP)) / (t + 16.881)<sup>0.713</sup></td>
+        </tr>
+        <tr>
+            <td>25</td>
+            <td>乐清</td>
+            <td class="formula">q = (729.701 × (1 + 0.950lgP)) / (t + 3.563)<sup>0.474</sup></td>
+        </tr>
+        <tr>
+            <td>26</td>
+            <td>嘉兴 主城区</td>
+            <td class="formula">q = (6458.229 × (1 + 0.698lgP)) / (t + 19.571)<sup>0.937</sup></td>
+        </tr>
+        <tr>
+            <td>27</td>
+            <td>嘉善</td>
+            <td class="formula">q = (13624.798 × (1 + 0.883lgP)) / (t + 35.704)<sup>1.065</sup></td>
+        </tr>
+        <tr>
+            <td>28</td>
+            <td>海盐</td>
+            <td class="formula">q = (3997.497 × (1 + 0.919lgP)) / (t + 16.203)<sup>0.859</sup></td>
+        </tr>
+        <tr>
+            <td>29</td>
+            <td>海宁</td>
+            <td class="formula">q = (1686.867 × (1 + 1.057lgP)) / (t + 11.300)<sup>0.682</sup></td>
+        </tr>
+        <tr>
+            <td>30</td>
+            <td>平湖</td>
+            <td class="formula">q = (1657.327 × (1 + 1.051lgP)) / (t + 11.500)<sup>0.659</sup></td>
+        </tr>
+        <tr>
+            <td>31</td>
+            <td>桐乡</td>
+            <td class="formula">q = (2116.469 × (1 + 0.909lgP)) / (t + 10.760)<sup>0.737</sup></td>
+        </tr>
+        <tr>
+            <td>32</td>
+            <td>湖州 主城区</td>
+            <td class="formula">q = (3017.869 × (1 + 0.880lgP)) / (t + 10.033)<sup>0.833</sup></td>
+        </tr>
+    </table>
 
-        <h3>3.4 面源污染消减率（以SS计）η<sub>ss</sub>计算</h3>
-        <div class="formula">
-            η<sub>ss</sub> = (∑ FW<sub>i</sub> × η<sub>i</sub>) / FW<sub>z</sub>
-        </div>
-        
-        <p>本项目的LID设施包括透水铺装、绿化屋面、蓄水池和绿地。</p>
-        
-        <div class="highlight">
-            <p>面源污染削减率（以SS计）η<sub>ss</sub> = <span class="result">77%</span></p>
-            <p>η<sub>ss</sub>≥50% <span class="check">满足控制指标要求</span>。</p>
-        </div>
+    <div class="page-break"></div>
 
-        <h2>4 结论</h2>
-        <div class="highlight">
-            <p>本项目通过合理设置海绵城市设施（包括1,335.4 m<sup>2</sup>下凹绿地和48.7 m<sup>3</sup>蓄水池），成功实现了以下目标：</p>
-            <ul>
-                <li>雨量径流系数ψ<sub>c</sub>=0.527（≤0.6）</li>
-                <li>年径流总量控制率≥75%</li>
-                <li>面源污染削减率η<sub>ss</sub>=77%（≥50%）</li>
-                <li>下凹绿地占绿地比例≥40%</li>
-                <li>透水铺装比例=9.2%（需增加以满足≥25%要求）</li>
-            </ul>
-            <p class="result">建议增加透水铺装面积以满足道路透水铺装比例≥25%的要求。</p>
-        </div>
+    <table>
+        <tr>
+            <th>序号</th>
+            <th>城市名称</th>
+            <th>暴雨强度公式</th>
+        </tr>
+        <tr>
+            <td>33</td>
+            <td>德清</td>
+            <td class="formula">q = (2473.310 × (1 + 0.737lgP)) / (t + 11.451)<sup>0.749</sup></td>
+        </tr>
+        <tr>
+            <td>34</td>
+            <td>长兴</td>
+            <td class="formula">q = (4937.615 × (1 + 0.789lgP)) / (t + 18.070)<sup>0.892</sup></td>
+        </tr>
+        <tr>
+            <td>35</td>
+            <td>安吉</td>
+            <td class="formula">q = (11884.022 × (1 + 0.809lgP)) / (t + 28.639)<sup>1.063</sup></td>
+        </tr>
+        <tr>
+            <td>36</td>
+            <td>绍兴 越城区</td>
+            <td class="formula">q = (4202.615 × (1 + 1.267lgP)) / (t + 21.018)<sup>0.863</sup></td>
+        </tr>
+        <tr>
+            <td>37</td>
+            <td>柯桥</td>
+            <td class="formula">q = (3758.038 × (1 + 0.698lgP)) / (t + 16.294)<sup>0.821</sup></td>
+        </tr>
+        <tr>
+            <td>38</td>
+            <td>上虞</td>
+            <td class="formula">q = (3699.701 × (1 + 0.815lgP)) / (t + 18.017)<sup>0.817</sup></td>
+        </tr>
+        <tr>
+            <td>39</td>
+            <td>新昌</td>
+            <td class="formula">q = (4314.002 × (1 + 0.854lgP)) / (t + 19.160)<sup>0.857</sup></td>
+        </tr>
+        <tr>
+            <td>40</td>
+            <td>诸暨</td>
+            <td class="formula">q = (2763.362 × (1 + 0.750lgP)) / (t + 13.229)<sup>0.805</sup></td>
+        </tr>
+        <tr>
+            <td>41</td>
+            <td>嵊州</td>
+            <td class="formula">q = (4993.271 × (1 + 0.989lgP)) / (t + 19.759)<sup>0.912</sup></td>
+        </tr>
+        <tr>
+            <td>42</td>
+            <td>金华 主城区</td>
+            <td class="formula">q = (2734.581 × (1 + 0.747lgP)) / (t + 14.705)<sup>0.781</sup></td>
+        </tr>
+        <tr>
+            <td>43</td>
+            <td>武义</td>
+            <td class="formula">q = (1063.126 × (1 + 0.651lgP)) / (t + 2.992)<sup>0.594</sup></td>
+        </tr>
+        <tr>
+            <td>44</td>
+            <td>浦江</td>
+            <td class="formula">q = (7250.553 × (1 + 0.685lgP)) / (t + 19.823)<sup>0.986</sup></td>
+        </tr>
+        <tr>
+            <td>45</td>
+            <td>磐安</td>
+            <td class="formula">q = (3057.102 × (1 + 0.798lgP)) / (t + 18.104)<sup>0.782</sup></td>
+        </tr>
+    </table>
+
+    <div class="page-break"></div>
+
+    <table>
+        <tr>
+            <th>序号</th>
+            <th>城市名称</th>
+            <th>暴雨强度公式</th>
+        </tr>
+        <tr>
+            <td>46</td>
+            <td>兰溪</td>
+            <td class="formula">q = (3490.405 × (1 + 0.919lgP)) / (t + 12.150)<sup>0.875</sup></td>
+        </tr>
+        <tr>
+            <td>47</td>
+            <td>义乌</td>
+            <td class="formula">q = (7015.518 × (1 + 0.802lgP)) / (t + 20.951)<sup>0.960</sup></td>
+        </tr>
+        <tr>
+            <td>48</td>
+            <td>东阳</td>
+            <td class="formula">q = (3748.528 × (1 + 0.761lgP)) / (t + 16.380)<sup>0.852</sup></td>
+        </tr>
+        <tr>
+            <td>49</td>
+            <td>永康</td>
+            <td class="formula">q = (3091.449 × (1 + 0.919lgP)) / (t + 11.924)<sup>0.805</sup></td>
+        </tr>
+        <tr>
+            <td>50</td>
+            <td>衢州 主城区</td>
+            <td class="formula">q = (1633.573 × (1 + 0.607lgP)) / (t + 7.559)<sup>0.689</sup></td>
+        </tr>
+        <tr>
+            <td>51</td>
+            <td>常山</td>
+            <td class="formula">q = (1318.389 × (1 + 0.815lgP)) / (t + 5.247)<sup>0.660</sup></td>
+        </tr>
+        <tr>
+            <td>52</td>
+            <td>开化</td>
+            <td class="formula">q = (1003.122 × (1 + 0.685lgP)) / (t + 4.847)<sup>0.567</sup></td>
+        </tr>
+        <tr>
+            <td>53</td>
+            <td>龙游</td>
+            <td class="formula">q = (1934.359 × (1 + 0.997lgP)) / (t + 9.519)<sup>0.733</sup></td>
+        </tr>
+        <tr>
+            <td>54</td>
+            <td>江山</td>
+            <td class="formula">q = (3716.369 × (1 + 0.663lgP)) / (t + 17.185)<sup>0.842</sup></td>
+        </tr>
+        <tr>
+            <td>55</td>
+            <td>定海</td>
+            <td class="formula">q = (1989.570 × (1 + 0.854lgP)) / (t + 8.986)<sup>0.752</sup></td>
+        </tr>
+        <tr>
+            <td>56</td>
+            <td>普陀</td>
+            <td class="formula">q = (572.741 × (1 + 0.945lgP)) / (t + 0.390)<sup>0.487</sup></td>
+        </tr>
+        <tr>
+            <td>57</td>
+            <td>岱山</td>
+            <td class="formula">q = (1914.702 × (1 + 0.714lgP)) / (t + 13.969)<sup>0.695</sup></td>
+        </tr>
+        <tr>
+            <td>58</td>
+            <td>嵊泗</td>
+            <td class="formula">q = (1026.843 × (1 + 0.932lgP)) / (t + 5.162)<sup>0.629</sup></td>
+        </tr>
+    </table>
+
+    <div class="page-break"></div>
+
+    <table>
+        <tr>
+            <th>序号</th>
+            <th>城市名称</th>
+            <th>暴雨强度公式</th>
+        </tr>
+        <tr>
+            <td>59</td>
+            <td>台州 主城区</td>
+            <td class="formula">q = (695.993 × (1 + 0.802lgP)) / (t + 3.179)<sup>0.420</sup></td>
+        </tr>
+        <tr>
+            <td>60</td>
+            <td>玉环</td>
+            <td class="formula">q = (528.216 × (1 + 0.958lgP)) / (t + 0.780)<sup>0.396</sup></td>
+        </tr>
+        <tr>
+            <td>61</td>
+            <td>三门</td>
+            <td class="formula">q = (2157.448 × (1 + 0.646lgP)) / (t + 10.727)<sup>0.673</sup></td>
+        </tr>
+        <tr>
+            <td>62</td>
+            <td>天台</td>
+            <td class="formula">q = (1876.347 × (1 + 0.732lgP)) / (t + 10.364)<sup>0.658</sup></td>
+        </tr>
+        <tr>
+            <td>63</td>
+            <td>仙居</td>
+            <td class="formula">q = (1733.395 × (1 + 0.753lgP)) / (t + 6.796)<sup>0.683</sup></td>
+        </tr>
+        <tr>
+            <td>64</td>
+            <td>温岭</td>
+            <td class="formula">q = (969.755 × (1 + 0.659lgP)) / (t + 3.640)<sup>0.487</sup></td>
+        </tr>
+        <tr>
+            <td>65</td>
+            <td>临海</td>
+            <td class="formula">q = (2029.679 × (1 + 0.789lgP)) / (t + 10.471)<sup>0.670</sup></td>
+        </tr>
+        <tr>
+            <td>66</td>
+            <td>丽水 主城区</td>
+            <td class="formula">q = (3098.757 × (1 + 0.730lgP)) / (t + 12.262)<sup>0.819</sup></td>
+        </tr>
+        <tr>
+            <td>67</td>
+            <td>青田</td>
+            <td class="formula">q = (2234.299 × (1 + 0.735lgP)) / (t + 12.411)<sup>0.712</sup></td>
+        </tr>
+        <tr>
+            <td>68</td>
+            <td>缙云</td>
+            <td class="formula">q = (3090.629 × (1 + 0.555lgP)) / (t + 12.886)<sup>0.820</sup></td>
+        </tr>
+        <tr>
+            <td>69</td>
+            <td>遂昌</td>
+            <td class="formula">q = (3552.521 × (1 + 0.681lgP)) / (t + 14.363)<sup>0.848</sup></td>
+        </tr>
+        <tr>
+            <td>70</td>
+            <td>松阳</td>
+            <td class="formula">q = (9167.632 × (1 + 0.651lgP)) / (t + 28.934)<sup>1.023</sup></td>
+        </tr>
+        <tr>
+            <td>71</td>
+            <td>云和</td>
+            <td class="formula">q = (2457.523 × (1 + 0.796lgP)) / (t + 14.668)<sup>0.760</sup></td>
+        </tr>
+        <tr>
+            <td>72</td>
+            <td>庆元</td>
+            <td class="formula">q = (792.52 × (1 + 0.673lgP)) / (t + 1.402)<sup>0.538</sup></td>
+        </tr>
+        <tr>
+            <td>73</td>
+            <td>景宁</td>
+            <td class="formula">q = (2134.093 × (1 + 0.816lgP)) / (t + 14.445)<sup>0.719</sup></td>
+        </tr>
+        <tr>
+            <td>74</td>
+            <td>龙泉</td>
+            <td class="formula">q = (1240.485 × (1 + 0.789lgP)) / (t + 5.745)<sup>0.633</sup></td>
+        </tr>
+    </table>
+
+    <div class="calculation">
+        <p>本项目城市名称为宁波，暴雨强度公式：</p>
+        <p class="formula">q = (6576.744 × (1 + 0.685lgP)) / (t + 25.309)<sup>0.921</sup></p>
+        <p>根据基础数据，设计重现期 P=50（a），降雨历时 t=5（min）。</p>
+        <p>本项目暴雨强度：</p>
+        <p class="formula">q = (6576.744 × (1 + 0.685lg50)) / (5 + 25.309)<sup>0.921</sup> = 614.846 [L/(s·hm²)]</p>
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2>3 设计雨水流量计算</h2>
+    <h3>3.1 计算方法</h3>
+    <p>设计雨水流量应按不同的分区，分别采用下式计算：</p>
+    <p class="formula">q<sub>v</sub> = (q × ψ × F<sub>w</sub>) / 10000</p>
+    <p>式中：</p>
+    <ul>
+        <li>q<sub>v</sub>—设计雨水流量 (L/s)，当屋面坡度大于 2.5% 或采用内檐沟集水时，设计雨水流量应乘以系数 1.5；</li>
+        <li>q—设计暴雨强度 [L/(s·hm²)]；</li>
+        <li>ψ—径流系数；</li>
+        <li>F<sub>w</sub>—汇水面积 (m²)。</li>
+    </ul>
+
+    <h3>3.2 项目计算</h3>
+    <p>本项目不同分区的数据如下表：</p>
+    <table>
+        <tr>
+            <th>分区</th>
+            <th>汇水面积 F<sub>w</sub> (m²)</th>
+            <th>径流系数 ψ</th>
+            <th>屋面坡度 (%)</th>
+            <th>是否采用内檐沟集水</th>
+        </tr>
+        <tr>
+            <td>分区 1</td>
+            <td>500</td>
+            <td>1.0</td>
+            <td>3.0</td>
+            <td>否</td>
+        </tr>
+        <tr>
+            <td>分区 2</td>
+            <td>800</td>
+            <td>1.0</td>
+            <td>2.0</td>
+            <td>否</td>
+        </tr>
+        <tr>
+            <td>分区 3</td>
+            <td>1000</td>
+            <td>1.0</td>
+            <td>2.0</td>
+            <td>是</td>
+        </tr>
+    </table>
+
+    <p>不同分区的设计雨水流量 q<sub>v</sub> (L/s)</p>
+    <div class="calculation">
+        <p><strong>分区 1</strong>，q<sub>v</sub> = (614.846 × 1.0 × 500) / 10000 = 30.74 (L/s)。由于屋面坡度 3.0% > 2.5%，q<sub>v</sub> = 1.5 × 30.74 = <span class="highlight">46.11 (L/s)</span>。</p>
+    </div>
+    <div class="calculation">
+        <p><strong>分区 2</strong>，q<sub>v</sub> = (614.846 × 1.0 × 800) / 10000 = 49.19 (L/s)。由于屋面坡度 2.0% < 2.5%，且没有采用内檐沟集水，q<sub>v</sub> = <span class="highlight">49.19 (L/s)</span>。</p>
+    </div>
+    <div class="calculation">
+        <p><strong>分区 3</strong>，q<sub>v</sub> = (614.846 × 1.0 × 1000) / 10000 = 61.48 (L/s)。虽然屋面坡度 2.0% < 2.5%，但采用内檐沟集水，q<sub>v</sub> = 61.48 × 1.5 = <span class="highlight">92.22 (L/s)</span>。</p>
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2>4 管道设计</h2>
+    <p>当采用 87 型雨水斗，为半有压流，DN100 的立管最大排水流量为 12 (L/s)。不同的分区所需的 DN100 雨水管数量 n ≥ q<sub>v</sub>/12，且 n 取整。</p>
+    
+    <p>本项目雨水管道设计：</p>
+    <div class="calculation">
+        <p><strong>分区 1</strong>，n ≥ 46.11/12 = 3.84，所以 n 取 <span class="highlight">4</span>；</p>
+        <p><strong>分区 2</strong>，n ≥ 49.19/12 = 4.10，所以 n 取 <span class="highlight">5</span>；</p>
+        <p><strong>分区 3</strong>，n ≥ 92.22/12 = 7.69，所以 n 取 <span class="highlight">8</span>。</p>
     </div>
 </body>
 </html>
