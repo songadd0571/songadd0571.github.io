@@ -1,0 +1,688 @@
+<html lang="zh-CN"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>建筑给排水及消防系统运行维护管理指南</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e40af',
+                        secondary: '#3b82f6',
+                        accent: '#bfdbfe',
+                        neutral: '#f3f4f6',
+                        success: '#10b981',
+                        warning: '#f59e0b',
+                        danger: '#ef4444',
+                        info: '#6366f1',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .section-shadow {
+                box-shadow: 0 4px 20px -2px rgba(0, 32, 128, 0.1);
+            }
+            .hover-scale {
+                transition: transform 0.3s ease;
+            }
+            .hover-scale:hover {
+                transform: scale(1.02);
+            }
+            .regulation-tag {
+                @apply text-xs font-medium px-2.5 py-0.5 rounded-full;
+            }
+            .bg-gradient-blue {
+                background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- 导航栏 -->
+    <nav class="bg-white shadow-md fixed w-full z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fa fa-building-o text-primary text-2xl"></i>
+                <h1 class="text-xl font-bold text-primary">建筑给排水及消防系统指南</h1>
+            </div>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#fire-water" class="text-gray-700 hover:text-primary transition-colors">消防给水</a>
+                <a href="#sprinkler" class="text-gray-700 hover:text-primary transition-colors">自动喷水</a>
+                <a href="#indoor-water" class="text-gray-700 hover:text-primary transition-colors">室内给排水</a>
+                <a href="#rainwater" class="text-gray-700 hover:text-primary transition-colors">雨水排水</a>
+                <a href="#gas-extinguishing" class="text-gray-700 hover:text-primary transition-colors">气体灭火</a>
+                <a href="#fire-extinguisher" class="text-gray-700 hover:text-primary transition-colors">灭火器</a>
+                <a href="#fire-power" class="text-gray-700 hover:text-primary transition-colors">消防电源</a>
+                <a href="#general" class="text-gray-700 hover:text-primary transition-colors">通用要求</a>
+            </div>
+            <button class="md:hidden text-gray-700" id="menu-toggle">
+                <i class="fa fa-bars text-xl"></i>
+            </button>
+        </div>
+        <!-- 移动端菜单 -->
+        <div class="md:hidden hidden bg-white absolute w-full shadow-lg" id="mobile-menu">
+            <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
+                <a href="#fire-water" class="text-gray-700 hover:text-primary py-2 border-b border-gray-100">消防给水与消火栓系统</a>
+                <a href="#sprinkler" class="text-gray-700 hover:text-primary py-2 border-b border-gray-100">自动喷水灭火系统</a>
+                <a href="#indoor-water" class="text-gray-700 hover:text-primary py-2 border-b border-gray-100">室内给水排水系统</a>
+                <a href="#rainwater" class="text-gray-700 hover:text-primary py-2 border-b border-gray-100">雨水排水系统</a>
+                <a href="#gas-extinguishing" class="text-gray-700 hover:text-primary py-2 border-b border-gray-100">气体灭火系统</a>
+                <a href="#fire-extinguisher" class="text-gray-700 hover:text-primary py-2 border-b border-gray-100">灭火器</a>
+                <a href="#fire-power" class="text-gray-700 hover:text-primary py-2 border-b border-gray-100">消防电源与电气</a>
+                <a href="#general" class="text-gray-700 hover:text-primary py-2">通用要求</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主横幅 -->
+    <header class="pt-24 pb-16 bg-gradient-blue text-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold mb-4">建筑给排水及消防系统运行维护管理指南</h1>
+                <p class="text-lg md:text-xl opacity-90 mb-8">基于最新国家标准的系统运行、维护、管理、检修和应急处理要求</p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white/20">
+                        <i class="fa fa-book mr-2"></i>国家标准
+                    </span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white/20">
+                        <i class="fa fa-shield mr-2"></i>安全规范
+                    </span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white/20">
+                        <i class="fa fa-wrench mr-2"></i>维护管理
+                    </span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="container mx-auto px-4 py-12">
+        <!-- 概述 -->
+        <section class="mb-16 max-w-4xl mx-auto">
+            <div class="bg-white rounded-xl p-6 section-shadow hover-scale">
+                <h2 class="text-2xl font-bold text-primary mb-4 flex items-center">
+                    <i class="fa fa-info-circle mr-3 text-xl"></i>系统概述
+                </h2>
+                <p class="text-gray-700 leading-relaxed">
+                    根据建筑给排水及消防系统的不同分类，其运行、维护、管理、检修和应急处理要求如下：
+                    本指南综合了国家标准中的强制性条文和推荐性条款，确保系统安全可靠运行。
+                </p>
+                <div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-primary">
+                        <h3 class="font-semibold text-primary mb-2">消防系统</h3>
+                        <p class="text-sm text-gray-600">保障消防安全的各类系统</p>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-600">
+                        <h3 class="font-semibold text-green-600 mb-2">给水系统</h3>
+                        <p class="text-sm text-gray-600">提供生活和消防用水</p>
+                    </div>
+                    <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-600">
+                        <h3 class="font-semibold text-red-600 mb-2">排水系统</h3>
+                        <p class="text-sm text-gray-600">排除废水和雨水</p>
+                    </div>
+                    <div class="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-600">
+                        <h3 class="font-semibold text-purple-600 mb-2">电气系统</h3>
+                        <p class="text-sm text-gray-600">消防电源与电气设备</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 消防给水与消火栓系统 -->
+        <section id="fire-water" class="mb-16 max-w-4xl mx-auto">
+            <div class="bg-white rounded-xl overflow-hidden section-shadow hover-scale">
+                <div class="bg-primary p-4">
+                    <h2 class="text-xl font-bold text-white flex items-center">
+                        <i class="fa fa-fire-extinguisher mr-3"></i>一、消防给水与消火栓系统
+                    </h2>
+                </div>
+                <div class="p-6">
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fa fa-calendar-check-o mr-2 text-secondary"></i>日常检查
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-success mt-1 mr-3"></i>
+                                <div>
+                                    <p>每周检查消防水泵启动功能，模拟自动控制条件启动</p>
+                                    <span class="regulation-tag bg-blue-100 text-blue-800">GB 50974-2014 第14.0.4条</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-success mt-1 mr-3"></i>
+                                <div>
+                                    <p>每月检查消防水池、水箱水位及气压水罐压力</p>
+                                    <span class="regulation-tag bg-blue-100 text-blue-800">GB 50974-2014 第14.0.3条</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-success mt-1 mr-3"></i>
+                                <div>
+                                    <p>每季度测试室外阀门井控制阀全开状态</p>
+                                    <span class="regulation-tag bg-blue-100 text-blue-800">GB 50974-2014 第14.0.6条</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fa fa-cogs mr-2 text-warning"></i>维护管理
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fa fa-wrench text-warning mt-1 mr-3"></i>
+                                <div>
+                                    <p>每年全面检查金属管道腐蚀情况并防腐处理</p>
+                                    <span class="regulation-tag bg-yellow-100 text-yellow-800">GB 50974-2014 第9.3.1条</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-wrench text-warning mt-1 mr-3"></i>
+                                <div>
+                                    <p>消防水泵每年进行流量和压力试验</p>
+                                    <span class="regulation-tag bg-yellow-100 text-yellow-800">GB 50974-2014 第14.0.4条</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fa fa-exclamation-triangle mr-2 text-danger"></i>应急处理
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fa fa-exclamation-circle text-danger mt-1 mr-3"></i>
+                                <div>
+                                    <p>系统故障需停水检修时，应提前24小时通告并采取安全措施</p>
+                                    <span class="regulation-tag bg-red-100 text-red-800">GB 50974-2014 第9.1.3条</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 自动喷水灭火系统 -->
+        <section id="sprinkler" class="mb-16 max-w-4xl mx-auto">
+            <div class="bg-white rounded-xl overflow-hidden section-shadow hover-scale">
+                <div class="bg-secondary p-4">
+                    <h2 class="text-xl font-bold text-white flex items-center">
+                        <i class="fa fa-shower mr-3"></i>二、自动喷水灭火系统
+                    </h2>
+                </div>
+                <div class="p-6">
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fa fa-calendar-check-o mr-2 text-secondary"></i>日常检查
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-success mt-1 mr-3"></i>
+                                <div>
+                                    <p>每日检查报警阀组、水源控制阀外观及状态</p>
+                                    <span class="regulation-tag bg-blue-100 text-blue-800">GB 50261-2017 第9.0.10条</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-success mt-1 mr-3"></i>
+                                <div>
+                                    <p>每月测试电磁阀和末端试水装置</p>
+                                    <span class="regulation-tag bg-blue-100 text-blue-800">GB 50261-2017 第9.0.17条</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fa fa-cogs mr-2 text-warning"></i>维护管理
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fa fa-wrench text-warning mt-1 mr-3"></i>
+                                <div>
+                                    <p>喷头每月检查异物堵塞，备用数量不少于总数1%</p>
+                                    <span class="regulation-tag bg-yellow-100 text-yellow-800">GB 50261-2017 第9.0.18条</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-wrench text-warning mt-1 mr-3"></i>
+                                <div>
+                                    <p>每年对水源供水能力测试</p>
+                                    <span class="regulation-tag bg-yellow-100 text-yellow-800">GB 50261-2017 第9.0.12条</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fa fa-exclamation-triangle mr-2 text-danger"></i>应急处理
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fa fa-exclamation-circle text-danger mt-1 mr-3"></i>
+                                <div>
+                                    <p>维修时需经消防责任人批准，并采取临时防护措施</p>
+                                    <span class="regulation-tag bg-red-100 text-red-800">GB 50261-2017 第9.0.9条</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 室内给水排水系统 -->
+        <section id="indoor-water" class="mb-16 max-w-4xl mx-auto">
+            <div class="bg-white rounded-xl overflow-hidden section-shadow hover-scale">
+                <div class="bg-green-600 p-4">
+                    <h2 class="text-xl font-bold text-white flex items-center">
+                        <i class="fa fa-tint mr-3"></i>三、室内给水排水系统
+                    </h2>
+                </div>
+                <div class="p-6">
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fa fa-cog mr-2 text-green-600"></i>运行要求
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-success mt-1 mr-3"></i>
+                                <div>
+                                    <p>生活饮用水管道与非饮用水管道严格隔离</p>
+                                    <span class="regulation-tag bg-green-100 text-green-800">GB 50015-2019 第3.1.3条</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-success mt-1 mr-3"></i>
+                                <div>
+                                    <p>入户管压力≤0.35MPa</p>
+                                    <span class="regulation-tag bg-green-100 text-green-800">GB 50015-2019 第3.4.5条</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fa fa-cogs mr-2 text-warning"></i>维护管理
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fa fa-wrench text-warning mt-1 mr-3"></i>
+                                <div>
+                                    <p>定期检查水封深度≥50mm，防止返臭</p>
+                                    <span class="regulation-tag bg-yellow-100 text-yellow-800">GB 55038-2025 第7.1.7条</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-wrench text-warning mt-1 mr-3"></i>
+                                <div>
+                                    <p>排水立管每年雨季前全面检查</p>
+                                    <span class="regulation-tag bg-yellow-100 text-yellow-800">GB 50974-2014 第9.3.3条</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fa fa-exclamation-triangle mr-2 text-danger"></i>应急处理
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fa fa-exclamation-circle text-danger mt-1 mr-3"></i>
+                                <div>
+                                    <p>管道冻裂时，关闭阀门并排空存水</p>
+                                    <span class="regulation-tag bg-red-100 text-red-800">GB 50015-2019 第3.6.4条</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 雨水排水系统 -->
+        <section id="rainwater" class="mb-16 max-w-4xl mx-auto">
+            <div class="bg-white rounded-xl overflow-hidden section-shadow hover-scale">
+                <div class="bg-blue-600 p-4">
+                    <h2 class="text-xl font-bold text-white flex items-center">
+                        <i class="fa fa-cloud-rain mr-3"></i>四、雨水排水系统
+                    </h2>
+                </div>
+                <div class="p-6">
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fa fa-cogs mr-2 text-warning"></i>维护要求
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fa fa-wrench text-warning mt-1 mr-3"></i>
+                                <div>
+                                    <p>每年雨季前检查屋面雨水斗和管道</p>
+                                    <span class="regulation-tag bg-yellow-100 text-yellow-800">CJJ 142-2014 第10.5.1条</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-wrench text-warning mt-1 mr-3"></i>
+                                <div>
+                                    <p>严禁污废水排入雨水系统</p>
+                                    <span class="regulation-tag bg-yellow-100 text-yellow-800">CJJ 142-2014 第10.5.3条</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fa fa-exclamation-triangle mr-2 text-danger"></i>应急处理
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fa fa-exclamation-circle text-danger mt-1 mr-3"></i>
+                                <div>
+                                    <p>堵塞时及时清理格栅或管道内杂物</p>
+                                    <span class="regulation-tag bg-red-100 text-red-800">CJJ 142-2014 第10.5.2条</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 气体灭火系统 -->
+        <section id="gas-extinguishing" class="mb-16 max-w-4xl mx-auto">
+            <div class="bg-white rounded-xl overflow-hidden section-shadow hover-scale">
+                <div class="bg-purple-600 p-4">
+                    <h2 class="text-xl font-bold text-white flex items-center">
+                        <i class="fa fa-bolt mr-3"></i>五、气体灭火系统
+                    </h2>
+                </div>
+                <div class="p-6">
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fa fa-calendar-check-o mr-2 text-secondary"></i>日常检查
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-success mt-1 mr-3"></i>
+                                <div>
+                                    <p>每月检查储存容器压力</p>
+                                    <span class="regulation-tag bg-blue-100 text-blue-800">GB 50370-2005 第8.0.6条</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fa fa-exclamation-triangle mr-2 text-danger"></i>应急处理
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fa fa-exclamation-circle text-danger mt-1 mr-3"></i>
+                                <div>
+                                    <p>误喷时立即疏散人员并通风</p>
+                                    <span class="regulation-tag bg-red-100 text-red-800">GB 50370-2005 第6.0.7条</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 灭火器 -->
+        <section id="fire-extinguisher" class="mb-16 max-w-4xl mx-auto">
+            <div class="bg-white rounded-xl overflow-hidden section-shadow hover-scale">
+                <div class="bg-red-600 p-4">
+                    <h2 class="text-xl font-bold text-white flex items-center">
+                        <i class="fa fa-shield mr-3"></i>六、灭火器
+                    </h2>
+                </div>
+                <div class="p-6">
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fa fa-cogs mr-2 text-warning"></i>维护管理
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fa fa-wrench text-warning mt-1 mr-3"></i>
+                                <div>
+                                    <p>每月检查压力表及外观</p>
+                                    <span class="regulation-tag bg-yellow-100 text-yellow-800">GB 50444-2008 第5.2.2条</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-wrench text-warning mt-1 mr-3"></i>
+                                <div>
+                                    <p>每5年或充装后2年需水压试验</p>
+                                    <span class="regulation-tag bg-yellow-100 text-yellow-800">GB 50444-2008 第5.3.2条</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 消防电源与电气 -->
+        <section id="fire-power" class="mb-16 max-w-4xl mx-auto">
+            <div class="bg-white rounded-xl overflow-hidden section-shadow hover-scale">
+                <div class="bg-orange-600 p-4">
+                    <h2 class="text-xl font-bold text-white flex items-center">
+                        <i class="fa fa-plug mr-3"></i>七、消防电源与电气
+                    </h2>
+                </div>
+                <div class="p-6">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fa fa-exclamation-triangle mr-2 text-danger"></i>应急要求
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fa fa-exclamation-circle text-danger mt-1 mr-3"></i>
+                                <div>
+                                    <p>消防水泵按一级负荷供电，备用电源自动切换时间≤30s</p>
+                                    <span class="regulation-tag bg-red-100 text-red-800">GB 55036-2022 第11.0.1条</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 通用要求 -->
+        <section id="general" class="mb-16 max-w-4xl mx-auto">
+            <div class="bg-white rounded-xl overflow-hidden section-shadow hover-scale">
+                <div class="bg-gray-800 p-4">
+                    <h2 class="text-xl font-bold text-white flex items-center">
+                        <i class="fa fa-star mr-3"></i>通用要求
+                    </h2>
+                </div>
+                <div class="p-6">
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fa fa-tag text-primary mt-1 mr-3"></i>
+                            <div>
+                                <p>标识管理：所有消防设施需设置永久性标识</p>
+                                <span class="regulation-tag bg-blue-100 text-blue-800">GB 50974-2014 第8.3.7条</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-file-text-o text-info mt-1 mr-3"></i>
+                            <div>
+                                <p>记录存档：维护、检修记录需保存至少3年</p>
+                                <span class="regulation-tag bg-indigo-100 text-indigo-800">GB 50261-2017 第9.0.2条</span>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="mt-6 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <p class="text-gray-700 font-medium">以上要求综合了国家标准中的强制性条文和推荐性条款，确保系统安全可靠运行。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 规范参考 -->
+        <section class="mb-16 max-w-4xl mx-auto">
+            <div class="bg-white rounded-xl overflow-hidden section-shadow hover-scale">
+                <div class="bg-gray-700 p-4">
+                    <h2 class="text-xl font-bold text-white flex items-center">
+                        <i class="fa fa-book mr-3"></i>规范参考
+                    </h2>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-gray-800 mb-2">消防类</h3>
+                            <ul class="space-y-2 text-sm">
+                                <li>GB 50974-2014 《消防给水及消火栓系统技术规范》</li>
+                                <li>GB 50261-2017 《自动喷水灭火系统施工及验收规范》</li>
+                                <li>GB 50370-2005 《气体灭火系统设计规范》</li>
+                                <li>GB 50444-2008 《建筑灭火器配置验收及检查规范》</li>
+                                <li>GB 55036-2022 《消防设施通用规范》</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-gray-800 mb-2">给排水类</h3>
+                            <ul class="space-y-2 text-sm">
+                                <li>GB 50015-2019 《建筑给水排水设计标准》</li>
+                                <li>GB 55038-2025 《住宅项目规范》</li>
+                                <li>CJJ 142-2014 《建筑屋面雨水排水系统技术规程》</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 回到顶部按钮 -->
+        <button id="back-to-top" class="fixed bottom-6 right-6 bg-primary text-white p-3 rounded-full shadow-lg opacity-0 transition-opacity duration-300 hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50">
+            <i class="fa fa-arrow-up"></i>
+        </button>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">建筑给排水及消防系统指南</h3>
+                        <p class="text-gray-400 text-sm">基于最新国家标准的系统运行、维护、管理、检修和应急处理要求</p>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">快速链接</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="#fire-water" class="text-gray-400 hover:text-white transition-colors">消防给水与消火栓系统</a></li>
+                            <li><a href="#sprinkler" class="text-gray-400 hover:text-white transition-colors">自动喷水灭火系统</a></li>
+                            <li><a href="#indoor-water" class="text-gray-400 hover:text-white transition-colors">室内给水排水系统</a></li>
+                            <li><a href="#rainwater" class="text-gray-400 hover:text-white transition-colors">雨水排水系统</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">相关规范</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">GB 50974-2014</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">GB 50261-2017</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">GB 50015-2019</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">更多规范</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-8 pt-8 border-t border-gray-700 text-center text-gray-500 text-sm">
+                    <p>© 2025 建筑给排水及消防系统指南 | 基于最新国家标准</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 导航菜单切换
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 滚动时导航栏样式变化
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            const backToTop = document.getElementById('back-to-top');
+            
+            if (window.scrollY > 50) {
+                navbar.classList.add('py-2', 'shadow-lg');
+                navbar.classList.remove('py-3', 'shadow-md');
+                backToTop.classList.remove('opacity-0');
+                backToTop.classList.add('opacity-100');
+            } else {
+                navbar.classList.add('py-3', 'shadow-md');
+                navbar.classList.remove('py-2', 'shadow-lg');
+                backToTop.classList.add('opacity-0');
+                backToTop.classList.remove('opacity-100');
+            }
+        });
+
+        // 回到顶部按钮
+        document.getElementById('back-to-top').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // 关闭移动端菜单
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                }
+            });
+        });
+
+        // 为各部分添加动画效果
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fadeIn');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+
+
+    </body></html>
